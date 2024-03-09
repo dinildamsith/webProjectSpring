@@ -48,7 +48,15 @@ public class CustomerServiceIMPL implements CustomerService {
     }
 
     @Override
-    public void deleteCustomer(String deleteId) {
+        public String deleteCustomer(String deleteCustomerId) {
+        CustomerEntity customerEntity = customerRepository.findById(deleteCustomerId).orElse(null);
+
+        if (customerEntity != null){
+            customerRepository.delete(customerEntity);
+            return "Delete Success";
+        }else {
+            return "This Id No Have";
+        }
 
     }
 
