@@ -22,4 +22,12 @@ public class CustomerController {
     void updateCustomer(@RequestBody CustomerDTO customerDTO){
         customerService.updateCustomer(customerDTO);
     }
+
+    @GetMapping( "/{searchCustomerId}")
+    CustomerDTO searchCustomer(@PathVariable ("searchCustomerId") String searchCustomerId){
+        CustomerDTO customerDTO = customerService.searchCustomer(searchCustomerId);
+        return customerDTO;
+
+    }
+
 }

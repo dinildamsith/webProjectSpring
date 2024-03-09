@@ -54,6 +54,20 @@ public class CustomerServiceIMPL implements CustomerService {
 
     @Override
     public CustomerDTO searchCustomer(String searchId) {
-        return null;
+        CustomerEntity customerEntity = customerRepository.findById(searchId).orElse(null);
+
+        if (customerEntity != null) {
+            CustomerDTO customerDTO = conversionDATA.customerEntityConvertCustomerDTO(customerEntity);
+
+            customerDTO.setCust_Id(customerEntity.getCustomer_Id());
+            customerDTO.setCust_Name(customerEntity.getCustomer_Name());
+            customerDTO.setCust_Mail(customerEntity.getCustomer_Mail());
+            customerDTO.setCust_Address(customerEntity.getCustomer_Address());
+
+            return customerDTO;
+        } else {
+            System.out.println("This Id Has No Customers");
+            return null;
+        }
     }
 }
