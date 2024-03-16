@@ -38,8 +38,6 @@ public class CustomerServiceIMPL implements CustomerService {
         updatedCustomerEntity.get().setCustomer_Mail(customerDTO.getCust_Mail());
         updatedCustomerEntity.get().setCustomer_Address(customerDTO.getCust_Address());
 
-
-
 //       CustomerEntity existCustomerId = customerRepository.findById(customerDTO.getCust_Id()).orElse(null);
 //        System.out.println(existCustomerId);
 //       if (existCustomerId != null) {
@@ -51,22 +49,23 @@ public class CustomerServiceIMPL implements CustomerService {
 //       }else {
 //           System.out.println("No customer This id have");
 //       }
-
-
         return null;
     }
 
     @Override
         public String deleteCustomer(String deleteCustomerId) {
-        CustomerEntity customerEntity = customerRepository.findById(deleteCustomerId).orElse(null);
 
-        if (customerEntity != null){
-            customerRepository.delete(customerEntity);
-            return "Delete Success";
-        }else {
-            return "This Id No Have";
-        }
-
+        boolean checkIdHaveCustomer = customerRepository.existsById(deleteCustomerId);
+        if (!checkIdHaveCustomer) return "This Id have customer";
+        customerRepository.deleteById(deleteCustomerId);
+//        CustomerEntity customerEntity = customerRepository.findById(deleteCustomerId).orElse(null);
+//        if (customerEntity != null){
+//            customerRepository.delete(customerEntity);
+//            return "Delete Success";
+//        }else {
+//            return "This Id No Have";
+//        }   c
+        return null;
     }
 
     @Override
