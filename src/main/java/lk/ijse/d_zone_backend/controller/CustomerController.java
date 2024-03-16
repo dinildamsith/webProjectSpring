@@ -4,6 +4,7 @@ import lk.ijse.d_zone_backend.dto.CustomerDTO;
 import lk.ijse.d_zone_backend.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,9 +19,10 @@ public class CustomerController {
         customerService.saveCustomer(customerDTO);
     }
 
-    @PutMapping(produces = "application/json")
-    void updateCustomer(@RequestBody CustomerDTO customerDTO){
-        customerService.updateCustomer(customerDTO);
+    @PutMapping(value = "/{updateCustomerId}",produces = "application/json" ,consumes = MediaType.APPLICATION_JSON_VALUE)
+    String updateCustomer(@Validated  @PathVariable ("updateCustomerId") String updateCustomerId , @RequestBody CustomerDTO customerDTO){
+        String massage = customerService.updateCustomer(updateCustomerId, customerDTO);
+        return massage;
     }
 
     @GetMapping( "/{searchCustomerId}")

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 public class CustomerServiceIMPL implements CustomerService {
@@ -24,24 +26,31 @@ public class CustomerServiceIMPL implements CustomerService {
     public CustomerDTO saveCustomer(CustomerDTO customerDTO) {
         CustomerEntity customerEntity = conversionDATA.customerDTOConvertCustomerEntity(customerDTO);
         customerRepository.save(customerEntity);
-        System.out.println("Customer saved successfully");
         return null;
     }
 
     @Override
-    public CustomerDTO updateCustomer(CustomerDTO customerDTO) {
+    public String updateCustomer(String updateCustomerId , CustomerDTO customerDTO) {
 
-       CustomerEntity existCustomerId = customerRepository.findById(customerDTO.getCust_Id()).orElse(null);
-        System.out.println(existCustomerId);
-       if (existCustomerId != null) {
-           existCustomerId.setCustomer_Name(customerDTO.getCust_Name());
-           existCustomerId.setCustomer_Mail(customerDTO.getCust_Mail());
-           existCustomerId.setCustomer_Address(customerDTO.getCust_Address());
+        Optional<CustomerEntity> updatedCustomerEntity =  customerRepository.findById(updateCustomerId);
+        if (!updatedCustomerEntity.isPresent()) return "This Id does not";
+        updatedCustomerEntity.get().setCustomer_Name(customerDTO.getCust_Name());
+        updatedCustomerEntity.get().setCustomer_Mail(customerDTO.getCust_Mail());
+        updatedCustomerEntity.get().setCustomer_Address(customerDTO.getCust_Address());
 
-           customerRepository.save(existCustomerId);
-       }else {
-           System.out.println("No customer This id have");
-       }
+
+
+//       CustomerEntity existCustomerId = customerRepository.findById(customerDTO.getCust_Id()).orElse(null);
+//        System.out.println(existCustomerId);
+//       if (existCustomerId != null) {
+//           existCustomerId.setCustomer_Name(customerDTO.getCust_Name());
+//           existCustomerId.setCustomer_Mail(customerDTO.getCust_Mail());
+//           existCustomerId.setCustomer_Address(customerDTO.getCust_Address());
+//
+//           customerRepository.save(existCustomerId);
+//       }else {
+//           System.out.println("No customer This id have");
+//       }
 
 
         return null;
