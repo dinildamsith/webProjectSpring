@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -85,5 +86,13 @@ public class CustomerServiceIMPL implements CustomerService {
             System.out.println("This Id Has No Customers");
             return null;
         }
+    }
+
+    @Override
+    public List<CustomerDTO> getAllCustomer() {
+        List<CustomerEntity> allCustomersEntity = customerRepository.findAll();
+        List<CustomerDTO> allCustomersDTO = conversionDATA.customerEntityListConvertCustomerDtoList(allCustomersEntity);
+
+        return allCustomersDTO;
     }
 }

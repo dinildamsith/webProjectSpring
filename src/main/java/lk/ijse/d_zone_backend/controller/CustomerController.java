@@ -7,6 +7,8 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "https://dinildamsith.github.io")
 @RequestMapping("/customer")
@@ -38,6 +40,12 @@ public class CustomerController {
         String deleteCustomer = customerService.deleteCustomer(deleteCustomerId);
         return deleteCustomer;
 
+    }
+
+    @GetMapping
+    List<CustomerDTO> getAllCustomers(){
+        List<CustomerDTO> allCustomer = customerService.getAllCustomer();
+        return allCustomer;
     }
 
 }
