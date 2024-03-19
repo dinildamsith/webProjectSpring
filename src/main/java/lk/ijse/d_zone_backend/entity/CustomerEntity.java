@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "customer")
 public class CustomerEntity implements SuperEntity{
     @Id
-    private String customer_Id;
-    private String customer_Name;
-    private String customer_Mail;
-    private String customer_Address;
+    private String cust_Id;
+    private String cust_Name;
+    private String cust_Mail;
+    private String cust_Address;
 }

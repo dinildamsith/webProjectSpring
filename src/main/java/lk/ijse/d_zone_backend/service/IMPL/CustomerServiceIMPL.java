@@ -35,9 +35,9 @@ public class CustomerServiceIMPL implements CustomerService {
 
         Optional<CustomerEntity> updatedCustomerEntity =  customerRepository.findById(updateCustomerId);
         if (!updatedCustomerEntity.isPresent()) return "This Id does not";
-        updatedCustomerEntity.get().setCustomer_Name(customerDTO.getCust_Name());
-        updatedCustomerEntity.get().setCustomer_Mail(customerDTO.getCust_Mail());
-        updatedCustomerEntity.get().setCustomer_Address(customerDTO.getCust_Address());
+        updatedCustomerEntity.get().setCust_Name(customerDTO.getCust_Name());
+        updatedCustomerEntity.get().setCust_Mail(customerDTO.getCust_Mail());
+        updatedCustomerEntity.get().setCust_Address(customerDTO.getCust_Address());
 
 //       CustomerEntity existCustomerId = customerRepository.findById(customerDTO.getCust_Id()).orElse(null);
 //        System.out.println(existCustomerId);
@@ -76,10 +76,10 @@ public class CustomerServiceIMPL implements CustomerService {
         if (customerEntity != null) {
             CustomerDTO customerDTO = conversionDATA.customerEntityConvertCustomerDTO(customerEntity);
 
-            customerDTO.setCust_Id(customerEntity.getCustomer_Id());
-            customerDTO.setCust_Name(customerEntity.getCustomer_Name());
-            customerDTO.setCust_Mail(customerEntity.getCustomer_Mail());
-            customerDTO.setCust_Address(customerEntity.getCustomer_Address());
+            customerDTO.setCust_Id(customerEntity.getCust_Id());
+            customerDTO.setCust_Name(customerEntity.getCust_Name());
+            customerDTO.setCust_Mail(customerEntity.getCust_Mail());
+            customerDTO.setCust_Address(customerEntity.getCust_Address());
 
             return customerDTO;
         } else {
